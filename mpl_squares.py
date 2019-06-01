@@ -6,7 +6,7 @@ input_values = [1, 2, 3, 4, 5]
 squares = [1, 4, 9, 16, 25]
 # задается толщина линии
 plt.plot(input_values, squares, linewidth=5)
-# Назначение заголовка диаграмм и меток осей
+# Назначение заголовка диограмм и меток осей
 plt.title('Square Numbers', fontsize=24)
 plt.ylabel('Square of Value', fontsize=14)
 # Назначение размера шрифта делений на осях
