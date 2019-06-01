@@ -1,4 +1,4 @@
-# random_wolk.py
+# random_walk.py
 
 from random import choice
 
