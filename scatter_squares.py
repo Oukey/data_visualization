@@ -21,5 +21,7 @@ plt.tick_params(axis='both', which='major', labelsize=14)
 # Назначение диапазона для каждой оси
 plt.axis([0, 1100, 0, 1100000])
 
-plt.show()
+plt.show()  # вывод на экран
+plt.savefig('squeres_plot.png', bbox_inches='tight')  # сохранение файла
 
+#319
