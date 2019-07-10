@@ -24,4 +24,4 @@ plt.axis([0, 1100, 0, 1100000])
 plt.show()  # вывод на экран
 plt.savefig('squeres_plot.png', bbox_inches='tight')  # сохранение файла
 
-#319
+# 319
