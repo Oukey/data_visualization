@@ -7,12 +7,15 @@ from random_walk import RandomWalk
 # Новые блуждания строятся до тех пор, пока программа остается активной
 while True:
     # Построение случайного блуждания и нанесение точек на диаграмму
-    rw = RandomWalk(50000)  # создает экземпляр класса случайного блуждания
+    rw = RandomWalk(10000)  # создает экземпляр класса случайного блуждания
     rw.fill_walk()  # результат вычисления всех точек
+
+    # Назначене размера области просмотра
+    plt.figure(dpi=128, figsize=(10, 6))
 
     # Вывод точек и отображение диаграммы
     point_numbers = list(range(rw.num_points))
-    plt.scatter(rw.x_values, rw.y_values, c=point_numbers, cmap=plt.cm.Blues, edgecolor='none', s=1)
+    plt.scatter(rw.x_values, rw.y_values, c=point_numbers, cmap=plt.cm.Blues, edgecolor='none', s=5)
 
     # Выделение первой и последней точек
     # Начаьная точка - зеленая, последняя - красная
