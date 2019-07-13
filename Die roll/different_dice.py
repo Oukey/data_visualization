@@ -24,7 +24,7 @@ for value in range(2, max_result + 1):
 hist = pygal.Bar()
 
 hist.title = "Results of rolling a D6 and D10 50,000 times."
-hist.x_libels = ['2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14', '15', '16']
+hist.x_libels = [str(i) for i in range(2, max_result + 1)]
 hist.x_title = "Result"
 hist.e_title = "Frequency of Result"
 hist.add('D6' + 'D10', frequencies)
