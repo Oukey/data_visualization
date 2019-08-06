@@ -2,12 +2,12 @@
 
 import requests
 import pygal
-from pygal.style import LightColorizedStyle as LCS, LightenStyle as LS
+from pygal.style import LightenStyle as LS, LightColorizedStyle as LCS
 
 # Создание вызова API и сохранение ответа
 url = 'https://api.github.com/search/repositories?q=language:python&sort=stars'
 r = requests.get(url)
-print('Status code:', r.status_code)
+print("Status code:", r.status_code)
 
 # Сохранение ответа API в переменной
 response_dict = r.json()
@@ -15,15 +15,16 @@ print('Total repositories:', response_dict['total_count'])  # вывод общ�
 
 # Анализ информации о репозиториях
 repo_dicts = response_dict['items']
-print('number of items:', len(repo_dicts))
-
 names, plot_dicts = [], []
 for repo_dict in repo_dicts:
     names.append(repo_dict['name'])
-
+    description = repo_dict['description']
+    if not description:
+        description = 'No description provided'
     plot_dict = {
         'value': repo_dict['stargazers_count'],  # количество звезд
-        'label': repo_dict['description'],  # описание проекта
+        'label': description,  # описание проекта
+        'xlink': repo_dict['html_url'],
     }
     plot_dicts.append(plot_dict)
 
@@ -38,32 +39,11 @@ my_config.major_label_font_size = 18
 my_config.truncate_label = 15  # сокращение длинных имен до 15 символов
 my_config.show_y_guides = False  # скрытие горизонтальных линий на графике
 my_config.width = 1000  # ширина диаграммы
+
 chart = pygal.Bar(my_config, style=my_style)
 chart.title = 'Most-Starred Python Projects on GitHub'
 chart.x_labels = names
 chart.add('', plot_dicts)
 chart.render_to_file('python_repos.svg')
 
-
-# print('\nName:', repo_dict['name'])
-# print('Owner:', repo_dict['owner']['login'])
-# print('Stars:', repo_dict['stargazers_count'])
-# print('Repository:', repo_dict['html_url'])
-# print('Description:', repo_dict['description'])
-
-# # Анализ первого репозитория
-# repo_dict = repo_dicts[0]
-# print('\nSelected information about first repository:')
-# print('Name:', repo_dict['name'])  # имя проекта
-# print('Owner:', repo_dict['owner']['login'])  # Владелец
-# print('Stars:', repo_dict['stargazers_count'])  # Количество звезд
-# print('Repository:', repo_dict['html_url'])
-# print('Created:', repo_dict['created_at'])  # дата создания
-# print('Updated:', repo_dict['updated_at'])  # последнее обновление
-# print('Description:', repo_dict['description'])  # описание
-
-# print('\nKeys:', len(repo_dict))
-# for key in sorted(repo_dict.keys()):
-#     print(key)
-
-# 370
+# 373  БАГ!!! 'decode'
