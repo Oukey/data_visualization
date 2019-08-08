@@ -1,17 +1,17 @@
-# python_repos.py
+# go_repos.py
 
 import requests
 import pygal
 from pygal.style import LightenStyle as LS, LightColorizedStyle as LCS
 
 # Создание вызова API и сохранение ответа
-url = 'https://api.github.com/search/repositories?q=language:python&sort=stars'
+url = 'https://api.github.com/search/repositories?q=language:go&sort=stars'
 r = requests.get(url)
 print("Status code:", r.status_code)
 
 # Сохранение ответа API в переменной
 response_dict = r.json()
-print('Total repositories:', response_dict['total_count'])  # вывод общего количества репозиториев
+print('Total repositories:', response_dict['total_count'])
 
 # Анализ информации о репозиториях
 repo_dicts = response_dict['items']
@@ -22,8 +22,8 @@ for repo_dict in repo_dicts:
     if not description:
         description = 'No description provided'
     plot_dict = {
-        'value': repo_dict['stargazers_count'],  # количество звезд
-        'label': description,  # описание проекта
+        'value': repo_dict['stargazers_count'],
+        'label': description,
         'xlink': repo_dict['html_url'],
     }
     plot_dicts.append(plot_dict)
@@ -36,13 +36,13 @@ my_config.show_legend = False
 my_config.title_dont_size = 24
 my_config.label_font_size = 14
 my_config.major_label_font_size = 18
-my_config.truncate_label = 15  # сокращение длинных имен до 15 символов
-my_config.show_y_guides = False  # скрытие горизонтальных линий на графике
-my_config.width = 1000  # ширина диаграммы
+my_config.truncate_label = 15
+my_config.show_y_guides = False
+my_config.width = 1000
 
 chart = pygal.Bar(my_config, style=my_style)
-chart.title = 'Most-Starred Python Projects on GitHub'
+chart.title = 'Most-Starred Go Projects on GitHub'
 chart.x_labels = names
 chart.add('', plot_dicts)
-chart.render_to_file('python_repos.svg')
+chart.render_to_file('Go_repos.svg')
 
